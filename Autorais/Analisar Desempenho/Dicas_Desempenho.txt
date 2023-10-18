@@ -1,0 +1,66 @@
+1. Usar sempre collate do SQL ao ínves do Windows
+2. Sempre fazer com que a consulta execute sort (ordenação) na memória ao ínves do disco (tempdb).
+	Para identificar se o SQL está usando o disco ou memória basta verificar se no sort do plano de execução
+        o warning é exibido.
+
+3.
+
+SELECT @Col1 = Col1, @Col2 = Col2, @Col3 = Col3
+  FROM TesteTempdb
+ ORDER BY Col2 
+OPTION(MAXDOP 1, MIN_GRANT_PERCENT = 100) -- Informa pro SQL que quero usar 100% da memória
+
+
+4. Se não tiver problema de contençao na tempdb não precisar criar vários arquivos para o tempodb.
+
+5. Colocar o tempdb no melhor disco possível
+
+
+-- Ativa a opção de armazenamento de dados LOB fora das páginas de dados
+6. EXEC sp_tableoption 'TabelaVARMAX', 'large value types out of row', 1
+
+Quando se tem colunas do tipo varchar(max) é interessante ativar a opção de armazenamento de dados LOB.
+
+
+7. Remover lookups das consultas.
+
+Basta incluir a coluna que está causando o lookups (ver plano de execução) INCLUDE
+--CREATE INDEX ix_CompanyName ON CustomersBig(CompanyName) INCLUDE(Col1, Col2) WITH(DROP_EXISTING=ON)
+
+
+Dica 26:
+
+1. OPTION(USE HINT('ENABLE_PARALLEL_PLAN_PREFERENCE'))
+2. OPTION(QUERYTRACEON 8649) (Para versões menor que 2016)
+3. WITH(TABLOCK) 
+
+Dica 27:
+
+insert into com TABLOCK para gerar minimal logged
+
+Dica  29:
+	Executar um script dentro de um único lote de transação.
+
+Dica 30:
+	Utilizar spool manual por meio de varíaveis.
+
+Dica 31:
+ 	Fazer sempre testes de performance em consultas que usam sub-select ou cross apply
+
+ Dica 32: 
+
+ Dica 36: Usar como padrão para criação de funções WITH SCHEMABINDING
+
+ Dica 40: Usar sempre a variável de parâmetro de entrada da procudere e não a variável auxíliar
+
+ Dica 41: Sempre usar como filtro o mesmo tipo de dado da coluna. Ex: Nome - Varchar, Nome = @Nome essa variavel @Nome tem que ser varchar e não Nvarchar.
+
+ Dica 43: Ver de novo. Particionamento...
+
+ Dica 44: Ver de novo.
+
+ Dica 46: Usar sempre Between ao ínves de IN
+
+ Dica 48: Utilizar a trace flag (QueryTraceON 9130) em análise para visualizar melhor os planos de execução.
+
+ Dica 50: Usar o raiserror with(nowait) para debug

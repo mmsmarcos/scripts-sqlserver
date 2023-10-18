@@ -1,0 +1,25 @@
+Relação de bases com informações de configuração e tamanho.
+
+WITH CTE_TamanhoBD as (
+SELECT database_id, sum((size * 8) / 1024) as TamanhoMB
+FROM sys.master_files
+GROUP BY database_id)
+
+SELECT a.name as Banco,'' as Prod,a.recovery_model_desc as [Recovery],
+case a.compatibility_level
+when 80 then 'SQL2000'
+when 90 then 'SQL2005'
+when 100 then 'SQL2008'
+when 110 then 'SQL2012'
+when 120 then 'SQL2014'
+when 130 then 'SQL2016'
+when 140 then 'SQL2017'
+else ltrim(str(compatibility_level)) end as Versão,
+a.collation_name as Collation,
+case a.is_auto_close_on when 1 then 'AUTOCLOSE' else a.state_desc end as 'Status',
+b.TamanhoMB
+
+FROM master.sys.databases a
+JOIN CTE_TamanhoBD b ON a.database_id = b.database_id
+WHERE a.database_id > 4
+ORDER BY 1,2

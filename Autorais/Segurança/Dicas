@@ -1,0 +1,29 @@
+1. Propriedade de banco de dados TRUSTWORTHY
+
+	Tipo de Ameaça: Ataque de elevação de privilegio com db_owner e TRUSTWORTHY habilitado.
+	Usuários com permissão db_owner no servidor e onde a propriedade TRUSTWORTHY está habilitada, é possível que esse usuário consiga alterar sua permissão executando EXECUTE AS USER = 'dbo' para sysadmin.
+	Script: C:\Users\marco\OneDrive\Cursos\Fabricio Lima Soluções BD\Segurança no SQL Server\Scripts\1 - Configuração - Trustworthy.sql
+	Link: https://docs.microsoft.com/pt-br/sql/relational-databases/security/trustworthy-database-property?view=sql-server-ver15
+
+2. Auditoria de Logon
+	
+	Assegurar que a auditoria de logon está habilitada para casos de falhas de logon. 
+	Tipo de Ameaça: Ataque para tentar descobrir a senha dos usuário.
+	Com o botão direito do mouse na instância, em seguida propriedades, segurança é possível checar como está configurado a auditoria. É possível acompanha por meio do log do SQL as tentativas de quebra de senhas.
+	Script: C:\Users\marco\OneDrive\Cursos\Fabricio Lima Soluções BD\Segurança no SQL Server\Scripts\2 - Auditoria de Login - stpExporta_Tabela_HTML_Output.sql
+
+3. Autenticação de Login
+	
+	Analisar se é mais viavel criação de login no AD ao ínves de criar no banco.
+
+4. Ad hoc distributed queries
+
+	Com essa propriedade habilitada (sp_configure 'show advanced options', 1) é possivel executar OPENROWSET para roubar dados.
+	Script: C:\Users\marco\OneDrive\Cursos\Fabricio Lima Soluções BD\Segurança no SQL Server\Scripts\4 - Ad hoc distributed query.sql
+
+5. Page Verify como CHECKSUM
+
+6. Scan for startup procs.
+
+	Verificando as procedures que são inicializadas no sql server (SELECT * FROM sys.procedures WHERE is_auto_executed = 1)
+	Script: C:\Users\marco\OneDrive\Cursos\Fabricio Lima Soluções BD\Segurança no SQL Server\Scripts\9 - Scan for startup procs.sql

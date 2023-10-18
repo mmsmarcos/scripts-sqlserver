@@ -1,0 +1,18 @@
+Checkpup SQL Server
+
+1. Guia de Melhores Práticas
+2. Configurações de memória, paralelismo, afinidades de CPU 
+3. Atualização do SO
+4. Validar politicas de Backup
+5. Sistemas de recuperação de falhas,
+6. Validação de integridade dos dados
+7. Melhores Práticas de instalação da instância
+8. Planos de Cache no ambiente
+9. Indices não utilizados, ausentes ou duplicados
+10. Boas práticas para alocação da Tempdb e dos datafiles, 
+11. Contadores
+12. Ferramentas para auxílio de análise de performance
+13. Segurança
+
+
+Após o check-up, você receberá o nosso relatório com as sugestões de melhoria e encerramos essa atividade com você. Um feedback do que você achou do nosso trabalho é sempre bem-vindo, mas você não tem obrigação nenhuma de nos contratar, pode ficar tranquilo quanto à isso.
